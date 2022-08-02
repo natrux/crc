@@ -1,0 +1,1 @@
+using CRC_5_USB = CRC<5, 0x05, true, true, 0x1f, 0x1f>;

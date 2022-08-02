@@ -1,0 +1,1 @@
+using CRC_32_MEF = CRC<32, 0x741b8cd7, true, true, 0xffffffff, 0>;

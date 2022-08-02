@@ -1,0 +1,1 @@
+using CRC_8_TECH_3250 = CRC<8, 0x1d, true, true, 0xff, 0x00>;

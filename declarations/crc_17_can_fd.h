@@ -1,0 +1,1 @@
+using CRC_17_CAN_FD = CRC<17, 0x1685b, false, false, 0x00000, 0x00000>;

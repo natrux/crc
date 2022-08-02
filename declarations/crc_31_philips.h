@@ -1,0 +1,1 @@
+using CRC_31_PHILIPS = CRC<31, 0x04c11db7, false, false, 0x7fffffff, 0x7fffffff>;

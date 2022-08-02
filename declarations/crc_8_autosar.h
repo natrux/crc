@@ -1,0 +1,1 @@
+using CRC_8_AUTOSAR = CRC<8, 0x2f, false, false, 0xff, 0xff>;

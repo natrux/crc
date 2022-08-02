@@ -1,0 +1,1 @@
+using CRC_16_OPENSAFETY_B = CRC<16, 0x755b, false, false, 0x0000, 0x0000>;

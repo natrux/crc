@@ -1,0 +1,1 @@
+using CRC_16_DDS_110 = CRC<16, 0x8005, false, false, 0x800d, 0x0000>;

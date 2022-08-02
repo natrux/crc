@@ -1,0 +1,1 @@
+using CRC_16_CMS = CRC<16, 0x8005, false, false, 0xffff, 0x0000>;

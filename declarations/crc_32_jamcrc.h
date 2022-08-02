@@ -1,0 +1,1 @@
+using CRC_32_JAMCRC = CRC<32, 0x04c11db7, true, true, 0xffffffff, 0>;

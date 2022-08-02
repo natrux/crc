@@ -1,0 +1,1 @@
+using CRC_12_GSM = CRC<12, 0xd31, false, false, 0, 0xfff>;

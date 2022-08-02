@@ -1,0 +1,1 @@
+using CRC_32_AUTOSAR = CRC<32, 0xf4acfb13, true, true, 0xffffffff, 0xffffffff>;

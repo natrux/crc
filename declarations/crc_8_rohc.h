@@ -1,0 +1,1 @@
+using CRC_8_ROHC = CRC<8, 0x07, true, true, 0xff, 0x00>;

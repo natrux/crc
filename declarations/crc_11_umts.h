@@ -1,0 +1,1 @@
+using CRC_11_UMTS = CRC<11, 0x307, false, false, 0x000, 0x000>;

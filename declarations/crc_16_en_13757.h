@@ -1,0 +1,1 @@
+using CRC_16_EN_13757 = CRC<16, 0x3d65, false, false, 0x0000, 0xffff>;

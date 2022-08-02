@@ -1,0 +1,1 @@
+using CRC_4_INTERLAKEN = CRC<4, 3, false, false, 0xf, 0xf>;

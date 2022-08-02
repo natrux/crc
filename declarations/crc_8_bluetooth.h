@@ -1,0 +1,1 @@
+using CRC_8_BLUETOOTH = CRC<8, 0xa7, true, true, 0x00, 0x00>;

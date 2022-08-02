@@ -1,0 +1,1 @@
+using CRC_8_I_432_1 = CRC<8, 0x07, false, false, 0x00, 0x55>;

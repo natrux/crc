@@ -1,0 +1,1 @@
+using CRC_24_OS_9 = CRC<24, 0x800063, false, false, 0xffffff, 0xffffff>;

@@ -1,0 +1,1 @@
+using CRC_8_GSM_A = CRC<8, 0x1d, false, false, 0x00, 0x00>;

@@ -1,0 +1,1 @@
+using CRC_32_CD_ROM_EDC = CRC<32, 0x8001801b, true, true, 0, 0 >;

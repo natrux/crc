@@ -1,0 +1,1 @@
+using CRC_16_LJ1200 = CRC<16, 0x6f63, false, false, 0x0000, 0x0000>;

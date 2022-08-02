@@ -1,0 +1,1 @@
+using CRC_64_MS = CRC<64, 0x259c84cba6426349, true, true, 0xffffffffffffffff, 0>;

@@ -1,0 +1,1 @@
+using CRC_5_EPC_C1G2 = CRC<5, 0x9, false, false, 0x9, 0>;

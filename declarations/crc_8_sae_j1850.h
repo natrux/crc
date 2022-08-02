@@ -1,0 +1,1 @@
+using CRC_8_SAE_J1850 = CRC<8, 0x1d, false, false, 0xff, 0xff>;

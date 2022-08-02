@@ -1,0 +1,1 @@
+using CRC_16_DNP = CRC<16, 0x3d65, true, true, 0x0000, 0xffff>;

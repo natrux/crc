@@ -1,0 +1,1 @@
+using CRC_16_UMTS = CRC<16, 0x8005, false, false, 0x0000, 0x0000>;

@@ -1,0 +1,1 @@
+using CRC_16_T10_DIF = CRC<16, 0x8bb7, false, false, 0x0000, 0x0000>;

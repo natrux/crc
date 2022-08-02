@@ -1,0 +1,1 @@
+using CRC_15_CAN = CRC<15, 0x4599, false, false, 0x0000, 0x0000>;

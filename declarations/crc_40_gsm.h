@@ -1,0 +1,1 @@
+using CRC_40_GSM = CRC<40, 0x4820009, false, false, 0, 0xffffffffff>;

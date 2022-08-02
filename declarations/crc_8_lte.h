@@ -1,0 +1,1 @@
+using CRC_8_LTE = CRC<8, 0x9b, false, false, 0x00, 0x00>;

@@ -1,0 +1,1 @@
+using CRC_16_ISO_IEC_14443_3_A = CRC<16, 0x1021, true, true, 0xc6c6, 0x0000>;

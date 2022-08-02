@@ -1,0 +1,1 @@
+using CRC_7_MMC = CRC<7, 0x09, false, false, 0x00, 0x00>;

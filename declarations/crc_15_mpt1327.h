@@ -1,0 +1,1 @@
+using CRC_15_MPT1327 = CRC<15, 0x6815, false, false, 0x0000, 0x0001>;

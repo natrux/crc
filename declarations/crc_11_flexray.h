@@ -1,0 +1,1 @@
+using CRC_11_FLEXRAY = CRC<11, 0x385, false, false, 0x01a, 0x000>;

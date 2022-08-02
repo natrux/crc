@@ -1,0 +1,1 @@
+using CRC_32_AIXM = CRC<32, 0x814141ab, false, false, 0, 0>;

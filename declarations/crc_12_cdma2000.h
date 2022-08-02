@@ -1,0 +1,1 @@
+using CRC_12_CDMA2000 = CRC<12, 0xf13, false, false, 0xfff, 0>;

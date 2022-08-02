@@ -1,0 +1,1 @@
+using CRC_32_XFER = CRC<32, 0x000000af, false, false, 0, 0>;

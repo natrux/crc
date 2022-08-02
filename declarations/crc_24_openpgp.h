@@ -1,0 +1,1 @@
+using CRC_24_OPENPGP = CRC<24, 0x864cfb, false, false, 0xb704ce, 0x000000>;

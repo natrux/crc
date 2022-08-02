@@ -1,0 +1,1 @@
+using CRC_32_MPEG_2 = CRC<32, 0x04c11db7, false, false, 0xffffffff, 0>;

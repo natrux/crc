@@ -1,0 +1,1 @@
+using CRC_16_M17 = CRC<16, 0x5935, false, false, 0xffff, 0x0000>;

@@ -1,0 +1,1 @@
+using CRC_24_LTE_A = CRC<24, 0x864cfb, false, false, 0x000000, 0x000000>;

@@ -1,0 +1,1 @@
+using CRC_8_CDMA2000 = CRC<8, 0x9b, false, false, 0xff, 0x00>;

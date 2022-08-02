@@ -1,0 +1,1 @@
+using CRC_32_BASE91_D = CRC<32, 0xa833982b, true, true, 0xffffffff, 0xffffffff>;

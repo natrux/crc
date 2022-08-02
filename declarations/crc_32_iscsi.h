@@ -1,0 +1,1 @@
+using CRC_32_ISCSI = CRC<32, 0x1edc6f41, true, true, 0xffffffff, 0xffffffff>;

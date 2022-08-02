@@ -1,0 +1,1 @@
+using CRC_13_BBC = CRC<13, 0x1cf5, false, false, 0x0000, 0x0000>;

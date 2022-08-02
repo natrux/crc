@@ -1,0 +1,1 @@
+using CRC_4_G_704 = CRC<4, 3, true, true, 0, 0>;

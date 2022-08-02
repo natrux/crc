@@ -1,0 +1,1 @@
+using CRC_12_DECT = CRC<12, 0x80f, false, false, 0, 0>;

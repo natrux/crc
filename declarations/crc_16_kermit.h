@@ -1,0 +1,1 @@
+using CRC_16_KERMIT = CRC<16, 0x1021, true, true, 0x0000, 0x0000>;

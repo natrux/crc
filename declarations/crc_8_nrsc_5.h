@@ -1,0 +1,1 @@
+using CRC_8_NRSC_5 = CRC<8, 0x31, false, false, 0xff, 0x00>;

@@ -1,0 +1,1 @@
+using CRC_8_I_CODE = CRC<8, 0x1d, false, false, 0xfd, 0x00>;

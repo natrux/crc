@@ -1,0 +1,1 @@
+using CRC_24_BLE = CRC<24, 0x00065b, true, true, 0x555555, 0x000000>;

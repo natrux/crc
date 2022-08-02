@@ -1,0 +1,1 @@
+using CRC_24_FLEXRAY_A = CRC<24, 0x5d6dcb, false, false, 0xfedcba, 0x000000>;

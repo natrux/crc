@@ -1,0 +1,1 @@
+using CRC_14_DARC = CRC<14, 0x0805, true, true, 0, 0>;

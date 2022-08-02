@@ -1,0 +1,1 @@
+using CRC_64_GO_ISO = CRC<64, 0x1b, true, true, 0xffffffffffffffff, 0xffffffffffffffff>;

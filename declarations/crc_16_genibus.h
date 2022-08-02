@@ -1,0 +1,1 @@
+using CRC_16_GENIBUS = CRC<16, 0x1021, false, false, 0xffff, 0xffff>;

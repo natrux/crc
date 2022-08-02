@@ -1,0 +1,1 @@
+using CRC_64_ECMA_182 = CRC<64, 0x42f0e1eba9ea3693, false, false, 0, 0>;

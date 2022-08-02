@@ -1,0 +1,1 @@
+using CRC_16_MCRF4XX = CRC<16, 0x1021, true, true, 0xffff, 0x0000>;

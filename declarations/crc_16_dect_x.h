@@ -1,0 +1,1 @@
+using CRC_16_DECT_X = CRC<16, 0x0589, false, false, 0x0000, 0x0000>;

@@ -1,0 +1,1 @@
+using CRC_16_TMS37157 = CRC<16, 0x1021, true, true, 0x89ec, 0x0000>;

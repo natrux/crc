@@ -1,0 +1,1 @@
+using CRC_10_ATM = CRC<10, 0x233, false, false, 0x000, 0x000>;

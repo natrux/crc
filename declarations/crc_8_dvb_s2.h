@@ -1,0 +1,1 @@
+using CRC_8_DVB_S2 = CRC<8, 0xd5, false, false, 0x00, 0x00>;

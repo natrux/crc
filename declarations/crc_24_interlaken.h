@@ -1,0 +1,1 @@
+using CRC_24_INTERLAKEN = CRC<24, 0x328b63, false, false, 0xffffff, 0xffffff>;

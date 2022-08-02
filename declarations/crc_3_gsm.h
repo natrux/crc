@@ -1,0 +1,1 @@
+using CRC_3_GSM = CRC<3, 3, false, false, 0, 7>;
