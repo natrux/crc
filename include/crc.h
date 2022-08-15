@@ -41,10 +41,22 @@ template<size_t width, uint_w<width> poly, bool ref_in, bool ref_out, uint_w<wid
 class CRC{
 public:
 	using R = uint_w<width>;
+	static const size_t bit_size = width;
+	static const R polygon = poly;
+	static const R initialization = init;
+	static const R final_xor = xorout;
+	static const bool reflects_input = ref_in;
+	static const bool reflects_output = ref_out;
 
 	CRC(){
+		reset();
+	}
+
+	void reset(){
 		if(ref_in){
-			current = reflect<decltype(current), width>(current);
+			current = reflect<decltype(init), width>(init);
+		}else{
+			current = init;
 		}
 	}
 
@@ -68,6 +80,14 @@ public:
 		}
 		return (result ^ xorout) & mask;
 	}
+
+	// shortcut
+	static R compute(const char *data, size_t length){
+		CRC crc;
+		crc.update(data, length);
+		return crc.value();
+	}
+
 
 	// direct calculation. Only use to generate a table or if you don't care about performance.
 	static R calc(const char *data, size_t length){
@@ -128,13 +148,13 @@ public:
 private:
 	static const R high_bit = static_cast<R>(1) << (width - 1);
 	static const R mask = static_cast<R>(-1) >> (sizeof(R)*8 - width);
-	static R table[256];
-	R current = init;
+	static const R table[256];
+	R current;
 };
 
 
 // Definition, so that the class can be used without a table.
 // Can be overriden by template specialization.
 template<size_t width, uint_w<width> poly, bool ref_in, bool ref_out, uint_w<width> init, uint_w<width> xorout>
-uint_w<width> CRC<width, poly, ref_in, ref_out, init, xorout>::table[256] = {0};
+const uint_w<width> CRC<width, poly, ref_in, ref_out, init, xorout>::table[256] = {0};
 

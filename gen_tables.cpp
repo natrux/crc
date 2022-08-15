@@ -115,18 +115,41 @@
 #include "crc_64_xz.h"
 
 
+size_t calc_line_break(size_t bit_size){
+	static const size_t divisor_table[257] = {
+		1,
+		1,
+		2, 2,
+		4, 4, 4, 4,
+		8, 8, 8, 8, 8, 8, 8, 8,
+		16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+		32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+		64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
+		128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128,
+		256,
+	};
+
+	const size_t line_space = 120;
+	const size_t tab_space = 8;
+	const size_t ideal = (line_space - tab_space + 1) / (4 + bit_size / 4);
+	return divisor_table[std::min(ideal, static_cast<size_t>(256))];
+}
+
 
 template<class C>
 void print_table(std::ostream &out){
 	typename C::R tab[256];
 	C::calc_table(tab);
+
+	const size_t line_break = calc_line_break(C::bit_size);
+
 	out << "{" << std::endl;
 	for(size_t i=0; i<256; i++){
-		if(i % 4 == 0){
+		if(i % line_break == 0){
 			out << "\t";
 		}
 		out << "0x" << std::hex << static_cast<uint64_t>(tab[i]) << std::dec << ",";
-		if(i % 4 == 3){
+		if(i % line_break == line_break-1){
 			out << std::endl;
 		}else{
 			out << " ";
@@ -143,7 +166,7 @@ void print_header(std::ostream &out, const std::string &class_name, const std::s
 	out << "#include <cstdint>" << std::endl << std::endl << std::endl << std::endl;
 	out << "using " << class_name << " = " << full_type << ";" << std::endl << std::endl;
 	out << "template<>" << std::endl;
-	out << "uint_w<" << width << "> " << class_name << "::table[256];";
+	out << "const uint_w<" << width << "> " << class_name << "::table[256];";
 	out << std::endl << std::endl;
 }
 
@@ -152,7 +175,7 @@ template<class C>
 void print_src(std::ostream &out, const std::string &class_name, const std::string &lower_class_name, const std::string &width){
 	out << "#include \"" << lower_class_name << ".h\"" << std::endl << std::endl;
 	out << "template<>" << std::endl;
-	out << "uint_w<" << width << "> " << class_name << "::table[256] = ";
+	out << "const uint_w<" << width << "> " << class_name << "::table[256] = ";
 	print_table<C>(out);
 	out << ";" << std::endl << std::endl;
 }

@@ -117,10 +117,7 @@ template<class C>
 void check(const std::string &name, typename C::R expected){
 	const std::string check_string = "123456789";
 	typename C::R check_1 = C::calc(check_string.c_str(), check_string.length());
-
-	C c;
-	c.update(check_string.c_str(), check_string.length());
-	typename C::R check_2 = c.value();
+	typename C::R check_2 = C::compute(check_string.c_str(), check_string.length());
 
 	if(check_1 == expected && check_2 == expected){
 		std::cout << "[" << name << "] " << "0x" << std::hex << static_cast<uint64_t>(expected) << std::dec << " ok" << std::endl;
