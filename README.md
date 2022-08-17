@@ -47,3 +47,11 @@ uint64_t result = crc.value();
 ```
 
 The `update()` method can be called repeatedly, if necessary.
+
+If you only need the CRC value for a single byte buffer, you can also use this equivalent shortcut:
+
+```
+const char *buf = "123456789";
+const size_t length = 9;
+uint64_t result = CRC_64_XZ::compute(buf, length);
+```
