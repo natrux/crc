@@ -29,7 +29,7 @@ template<class T, size_t width=sizeof(T)*8>
 T reflect(const T &value){
 	static_assert(width <= sizeof(T)*8, "Cannot reflect more bits than the type has");
 	T result = 0;
-	T one = 1;
+	const T one = 1;
 	for(size_t i=0; i<width; i++){
 		result |= (((value & (one << i)) >> i) << (width - i - 1));
 	}
@@ -62,7 +62,7 @@ public:
 
 	void update(const char *data, size_t length){
 		for(size_t i=0; i<length; i++){
-			R c = data[i];
+			const R c = static_cast<R>(data[i]);
 			if(ref_in){
 				current = table[(current ^ c) & 0xFF] ^ (current >> 8);
 			}else if(width < 8){
@@ -139,7 +139,7 @@ public:
 
 	static void calc_table(R (&result)[256]){
 		for(size_t i=0; i<256; i++){
-			char c = i;
+			const char c = i;
 			// ref_out = ref_in, init = xorout = 0
 			result[i] = CRC<width, poly, ref_in, ref_in, 0, 0>::calc(&c, 1);
 		}
