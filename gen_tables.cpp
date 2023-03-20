@@ -1,118 +1,119 @@
-#include "crc.h"
+#include <crc/crc.h>
 #include <cstdint>
 #include <iostream>
 #include <fstream>
 
-#include "crc_3_gsm.h"
-#include "crc_3_rohc.h"
-#include "crc_4_g_704.h"
-#include "crc_4_interlaken.h"
-#include "crc_5_epc_c1g2.h"
-#include "crc_5_g_704.h"
-#include "crc_5_usb.h"
-#include "crc_6_cdma2000_a.h"
-#include "crc_6_cdma2000_b.h"
-#include "crc_6_darc.h"
-#include "crc_6_g_704.h"
-#include "crc_6_gsm.h"
-#include "crc_7_mmc.h"
-#include "crc_7_rohc.h"
-#include "crc_7_umts.h"
-#include "crc_8_autosar.h"
-#include "crc_8_bluetooth.h"
-#include "crc_8_cdma2000.h"
-#include "crc_8_darc.h"
-#include "crc_8_dvb_s2.h"
-#include "crc_8_gsm_a.h"
-#include "crc_8_gsm_b.h"
-#include "crc_8_hitag.h"
-#include "crc_8_i_432_1.h"
-#include "crc_8_i_code.h"
-#include "crc_8_lte.h"
-#include "crc_8_maxim_dow.h"
-#include "crc_8_mifare_mad.h"
-#include "crc_8_nrsc_5.h"
-#include "crc_8_opensafety.h"
-#include "crc_8_rohc.h"
-#include "crc_8_sae_j1850.h"
-#include "crc_8_smbus.h"
-#include "crc_8_tech_3250.h"
-#include "crc_8_wcdma.h"
-#include "crc_10_atm.h"
-#include "crc_10_cdma2000.h"
-#include "crc_10_gsm.h"
-#include "crc_11_flexray.h"
-#include "crc_11_umts.h"
-#include "crc_12_cdma2000.h"
-#include "crc_12_dect.h"
-#include "crc_12_gsm.h"
-#include "crc_12_umts.h"
-#include "crc_13_bbc.h"
-#include "crc_14_darc.h"
-#include "crc_14_gsm.h"
-#include "crc_15_can.h"
-#include "crc_15_mpt1327.h"
-#include "crc_16_arc.h"
-#include "crc_16_cdma2000.h"
-#include "crc_16_cms.h"
-#include "crc_16_dds_110.h"
-#include "crc_16_dect_r.h"
-#include "crc_16_dect_x.h"
-#include "crc_16_dnp.h"
-#include "crc_16_en_13757.h"
-#include "crc_16_genibus.h"
-#include "crc_16_gsm.h"
-#include "crc_16_ibm_3740.h"
-#include "crc_16_ibm_sdlc.h"
-#include "crc_16_iso_iec_14443_3_a.h"
-#include "crc_16_kermit.h"
-#include "crc_16_lj1200.h"
-#include "crc_16_m17.h"
-#include "crc_16_maxim_dow.h"
-#include "crc_16_mcrf4xx.h"
-#include "crc_16_modbus.h"
-#include "crc_16_nrsc_5.h"
-#include "crc_16_opensafety_a.h"
-#include "crc_16_opensafety_b.h"
-#include "crc_16_profibus.h"
-#include "crc_16_riello.h"
-#include "crc_16_spi_fujitsu.h"
-#include "crc_16_t10_dif.h"
-#include "crc_16_teledisk.h"
-#include "crc_16_tms37157.h"
-#include "crc_16_umts.h"
-#include "crc_16_usb.h"
-#include "crc_16_xmodem.h"
-#include "crc_17_can_fd.h"
-#include "crc_21_can_fd.h"
-#include "crc_24_ble.h"
-#include "crc_24_flexray_a.h"
-#include "crc_24_flexray_b.h"
-#include "crc_24_interlaken.h"
-#include "crc_24_lte_a.h"
-#include "crc_24_lte_b.h"
-#include "crc_24_openpgp.h"
-#include "crc_24_os_9.h"
-#include "crc_30_cdma.h"
-#include "crc_31_philips.h"
-#include "crc_32_aixm.h"
-#include "crc_32_autosar.h"
-#include "crc_32_base91_d.h"
-#include "crc_32_bzip2.h"
-#include "crc_32_cd_rom_edc.h"
-#include "crc_32_cksum.h"
-#include "crc_32_iso_hdlc.h"
-#include "crc_32_iscsi.h"
-#include "crc_32_jamcrc.h"
-#include "crc_32_mef.h"
-#include "crc_32_mpeg_2.h"
-#include "crc_32_xfer.h"
-#include "crc_40_gsm.h"
-#include "crc_64_ecma_182.h"
-#include "crc_64_go_iso.h"
-#include "crc_64_ms.h"
-#include "crc_64_we.h"
-#include "crc_64_xz.h"
+#include <crc_3_gsm.inl>
+#include <crc_3_rohc.inl>
+#include <crc_4_g_704.inl>
+#include <crc_4_interlaken.inl>
+#include <crc_5_epc_c1g2.inl>
+#include <crc_5_g_704.inl>
+#include <crc_5_usb.inl>
+#include <crc_6_cdma2000_a.inl>
+#include <crc_6_cdma2000_b.inl>
+#include <crc_6_darc.inl>
+#include <crc_6_g_704.inl>
+#include <crc_6_gsm.inl>
+#include <crc_7_mmc.inl>
+#include <crc_7_rohc.inl>
+#include <crc_7_umts.inl>
+#include <crc_8_autosar.inl>
+#include <crc_8_bluetooth.inl>
+#include <crc_8_cdma2000.inl>
+#include <crc_8_darc.inl>
+#include <crc_8_dvb_s2.inl>
+#include <crc_8_gsm_a.inl>
+#include <crc_8_gsm_b.inl>
+#include <crc_8_hitag.inl>
+#include <crc_8_i_432_1.inl>
+#include <crc_8_i_code.inl>
+#include <crc_8_lte.inl>
+#include <crc_8_maxim_dow.inl>
+#include <crc_8_mifare_mad.inl>
+#include <crc_8_nrsc_5.inl>
+#include <crc_8_opensafety.inl>
+#include <crc_8_rohc.inl>
+#include <crc_8_sae_j1850.inl>
+#include <crc_8_smbus.inl>
+#include <crc_8_tech_3250.inl>
+#include <crc_8_wcdma.inl>
+#include <crc_10_atm.inl>
+#include <crc_10_cdma2000.inl>
+#include <crc_10_gsm.inl>
+#include <crc_11_flexray.inl>
+#include <crc_11_umts.inl>
+#include <crc_12_cdma2000.inl>
+#include <crc_12_dect.inl>
+#include <crc_12_gsm.inl>
+#include <crc_12_umts.inl>
+#include <crc_13_bbc.inl>
+#include <crc_14_darc.inl>
+#include <crc_14_gsm.inl>
+#include <crc_15_can.inl>
+#include <crc_15_mpt1327.inl>
+#include <crc_16_arc.inl>
+#include <crc_16_cdma2000.inl>
+#include <crc_16_cms.inl>
+#include <crc_16_dds_110.inl>
+#include <crc_16_dect_r.inl>
+#include <crc_16_dect_x.inl>
+#include <crc_16_dnp.inl>
+#include <crc_16_en_13757.inl>
+#include <crc_16_genibus.inl>
+#include <crc_16_gsm.inl>
+#include <crc_16_ibm_3740.inl>
+#include <crc_16_ibm_sdlc.inl>
+#include <crc_16_iso_iec_14443_3_a.inl>
+#include <crc_16_kermit.inl>
+#include <crc_16_lj1200.inl>
+#include <crc_16_m17.inl>
+#include <crc_16_maxim_dow.inl>
+#include <crc_16_mcrf4xx.inl>
+#include <crc_16_modbus.inl>
+#include <crc_16_nrsc_5.inl>
+#include <crc_16_opensafety_a.inl>
+#include <crc_16_opensafety_b.inl>
+#include <crc_16_profibus.inl>
+#include <crc_16_riello.inl>
+#include <crc_16_spi_fujitsu.inl>
+#include <crc_16_t10_dif.inl>
+#include <crc_16_teledisk.inl>
+#include <crc_16_tms37157.inl>
+#include <crc_16_umts.inl>
+#include <crc_16_usb.inl>
+#include <crc_16_xmodem.inl>
+#include <crc_17_can_fd.inl>
+#include <crc_21_can_fd.inl>
+#include <crc_24_ble.inl>
+#include <crc_24_flexray_a.inl>
+#include <crc_24_flexray_b.inl>
+#include <crc_24_interlaken.inl>
+#include <crc_24_lte_a.inl>
+#include <crc_24_lte_b.inl>
+#include <crc_24_openpgp.inl>
+#include <crc_24_os_9.inl>
+#include <crc_30_cdma.inl>
+#include <crc_31_philips.inl>
+#include <crc_32_aixm.inl>
+#include <crc_32_autosar.inl>
+#include <crc_32_base91_d.inl>
+#include <crc_32_bzip2.inl>
+#include <crc_32_cd_rom_edc.inl>
+#include <crc_32_cksum.inl>
+#include <crc_32_iso_hdlc.inl>
+#include <crc_32_iscsi.inl>
+#include <crc_32_jamcrc.inl>
+#include <crc_32_mef.inl>
+#include <crc_32_mpeg_2.inl>
+#include <crc_32_xfer.inl>
+#include <crc_40_gsm.inl>
+#include <crc_64_ecma_182.inl>
+#include <crc_64_go_iso.inl>
+#include <crc_64_ms.inl>
+#include <crc_64_we.inl>
+#include <crc_64_xz.inl>
+
 
 
 size_t calc_line_break(size_t bit_size){
@@ -162,7 +163,7 @@ void print_table(std::ostream &out){
 template<class C>
 void print_header(std::ostream &out, const std::string &class_name, const std::string &full_type, const std::string &width){
 	out << "#pragma once" << std::endl << std::endl;
-	out << "#include \"crc.h\"" << std::endl;
+	out << "#include <crc/crc.h>" << std::endl;
 	out << "#include <cstdint>" << std::endl << std::endl << std::endl << std::endl;
 	out << "using " << class_name << " = " << full_type << ";" << std::endl << std::endl;
 	out << "template<>" << std::endl;
@@ -173,7 +174,7 @@ void print_header(std::ostream &out, const std::string &class_name, const std::s
 
 template<class C>
 void print_src(std::ostream &out, const std::string &class_name, const std::string &lower_class_name, const std::string &width){
-	out << "#include \"" << lower_class_name << ".h\"" << std::endl << std::endl;
+	out << "#include <crc/" << lower_class_name << ".h>" << std::endl << std::endl;
 	out << "template<>" << std::endl;
 	out << "const uint_w<" << width << "> " << class_name << "::table[256] = ";
 	print_table<C>(out);
@@ -196,7 +197,7 @@ void generate_table(const std::string &class_name){
 	}
 	std::string full_type;
 	{
-		std::ifstream stream("declarations/"+lower_class_name+".h");
+		std::ifstream stream("declarations/"+lower_class_name+".inl");
 		std::string line;
 		std::getline(stream, line);
 		size_t pos1 = line.find(" = ") + 3;
@@ -211,7 +212,7 @@ void generate_table(const std::string &class_name){
 	}
 
 	{
-		std::ofstream stream("tables/include/"+lower_class_name+".h");
+		std::ofstream stream("tables/include/crc/"+lower_class_name+".h");
 		print_header<C>(stream, class_name, full_type, int_width);
 	}
 	{
