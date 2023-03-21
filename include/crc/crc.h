@@ -94,7 +94,7 @@ public:
 		R result = init;
 		for(size_t i=0; i<length; i++){
 			if(width < 8){
-				unsigned char c = data[i];
+				unsigned char c = static_cast<unsigned char>(data[i]);
 				if(ref_in){
 					c = reflect(c);
 				}
@@ -114,7 +114,7 @@ public:
 				// slightly faster but only works for width >= 8
 				R c;
 				{
-					unsigned char cc = data[i];
+					unsigned char cc = static_cast<unsigned char>(data[i]);
 					if(ref_in){
 						cc = reflect(cc);
 					}

@@ -116,6 +116,14 @@
 
 
 
+std::string declarations_dir;
+std::string tables_dir;
+
+size_t calc_line_break(size_t bit_size);
+void generate_all_tables();
+void usage(const std::string &arg0);
+
+
 size_t calc_line_break(size_t bit_size){
 	static const size_t divisor_table[257] = {
 		1,
@@ -197,7 +205,7 @@ void generate_table(const std::string &class_name){
 	}
 	std::string full_type;
 	{
-		std::ifstream stream("declarations/"+lower_class_name+".inl");
+		std::ifstream stream(declarations_dir+"/"+lower_class_name+".inl");
 		std::string line;
 		std::getline(stream, line);
 		size_t pos1 = line.find(" = ") + 3;
@@ -212,11 +220,11 @@ void generate_table(const std::string &class_name){
 	}
 
 	{
-		std::ofstream stream("tables/include/crc/"+lower_class_name+".h");
+		std::ofstream stream(tables_dir+"/include/crc/"+lower_class_name+".h");
 		print_header<C>(stream, class_name, full_type, int_width);
 	}
 	{
-		std::ofstream stream("tables/src/"+lower_class_name+".cpp");
+		std::ofstream stream(tables_dir+"/src/"+lower_class_name+".cpp");
 		print_src<C>(stream, class_name, lower_class_name, int_width);
 	}
 }
@@ -336,7 +344,22 @@ void generate_all_tables(){
 }
 
 
-int main(int /*argc*/, char **/*argv*/){
+void usage(const std::string &arg0){
+	std::cout << "Usage: " << arg0 << " declarations_dir tables_dir" << std::endl;
+	std::cout << "Where" << std::endl;
+	std::cout << "    declarations_dir is the input folder with the inline declarations" << std::endl;
+	std::cout << "    tables_dir is the output folder" << std::endl;
+}
+
+
+int main(int argc, char **argv){
+	if(argc != 3){
+		usage(argv[0]);
+		return 1;
+	}
+	declarations_dir = argv[1];
+	tables_dir = argv[2];
+
 	generate_all_tables();
 
 	return 0;
