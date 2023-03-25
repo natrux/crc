@@ -14,25 +14,59 @@ This library uses the `#pragma once` directive, which is non-standard but widely
 
 There are three ways to use the library.
 
-### Direct Calculation
 
-Note: Only use this if you don't care about performance.
+### Using as a sub library
 
-`#include` the `include/crc/crc.h` file in your program and use the fitting instantiation line from the `declarations/` directory (or your own one), for example
+You can use the library as a subdirectory in a cmake project.
+This is the preferred way and the easiest and cleanest way to set up.
 
-```
-using CRC_64_XZ = CRC<64, 0x42f0e1eba9ea3693, true, true, 0xffffffffffffffff, 0xffffffffffffffff>;
-```
-
-Then you can directly calculate the respective CRC values from a byte buffer:
+First, decide which CRC algorithm(s) you need, set the build options accordingly and then add the subdirectory / git submodule.
+For example, if you only need the `crc_64_xz` algorithm, your cmake file could look like this.
 
 ```
-const char *buf = "123456789";
-const size_t length = 9;
-const uint64_t result = CRC_64_XZ::calc(buf, length);
+set(CRC_BUILD_COMBINED OFF)
+set(CRC_BUILD_crc_64_xz ON)
+add_subdirectory(crc)
 ```
 
-### Using Precomputed Tables
+(The `CRC_BUILD_COMBINED` builds a single library that contains all the CRC algorithms which is usually not needed.)
+
+Then you can link against the library(s) like you are used to:
+
+```
+add_executable(main main.cpp)
+target_link_libraries(main crc_64_xz)
+```
+
+which also makes the needed header files available.
+
+Now create an instance of the CRC class you want and feed it your data
+by calling the ``update()`` method (repeatedly if necessary). The current result
+can be retrieved by the ``value()`` method.
+If you only have one chunk of data, you can also use the static ``compute()``
+function which combines the above steps.
+
+For example:
+
+```
+#include <crc/crc_64_xz.h>
+
+int main(int argc, char **argv){
+	const char *buf = "123456789";
+	const size_t length = 9;
+
+	CRC_64_XZ crc;
+	crc.update(buf, length);
+	const uint64_t result_1 = crc.value();
+
+	const uint64_t result_2 = CRC_64_XZ::compute(buf, length);
+
+	return 0;
+}
+```
+
+
+### Importing the Precomputed Tables
 
 Build the library in the standard cmake way
 
@@ -59,64 +93,39 @@ For example, for the `crc_64_xz` algorithm, you need
 
 Copy them into your project and make sure the paths work out.
 
-Then you can use the class like this:
+Then you can use the class like in the first method:
 
 ```
 const char *buf = "123456789";
 const size_t length = 9;
+
 CRC_64_XZ crc;
 crc.update(buf, length);
-const uint64_t result = crc.value();
-```
+const uint64_t result_1 = crc.value();
 
-The `update()` method can be called repeatedly, if necessary.
-
-If you only need the CRC value for a single byte buffer, you can also use this equivalent shortcut:
-
-```
-const uint64_t result = CRC_64_XZ::compute(buf, length);
+const uint64_t result_2 = CRC_64_XZ::compute(buf, length);
 ```
 
 
-### Using as a sub library
+### Direct Calculation
 
-You can use the library as a subdirectory in a cmake project.
-First, decide which CRC algorithm(s) you need, set the build options accordingly and then add the subdirectory.
-For example, if you only need the `crc_64_xz` algorithm, your cmake file could look like this.
+Note: This approach is slow because it does not use precomputed lookup tables.
+Only use this if you don't care about performance.
+Internally, this approach is used to generate the lookup tables.
 
-```
-set(CRC_BUILD_COMBINED OFF)
-set(CRC_BUILD_crc_64_xz ON)
-add_subdirectory(crc)
-```
-
-(The `CRC_BUILD_COMBINED` builds a single library that contains all the CRC algorithms which is usually not needed.)
-
-Then you can link against the library like you are used to:
+`#include` the `include/crc/crc.h` file in your program and use the fitting instantiation line from the `declarations/` directory (or your own one), for example
 
 ```
-add_executable(main main.cpp)
-target_link_libraries(main crc_64_xz)
+using CRC_64_XZ = CRC<64, 0x42f0e1eba9ea3693, true, true, 0xffffffffffffffff, 0xffffffffffffffff>;
 ```
 
-which makes the needed header files available.
-Computation works the same as in the second method.
-For example:
+Then you can directly calculate the respective CRC values from a byte buffer:
 
 ```
-#include <crc/crc_64_xz.h>
-
-int main(int argc, char **argv){
-	const char *buf = "123456789";
-	const size_t length = 9;
-
-	CRC_64_XZ crc;
-	crc.update(buf, length);
-	const uint64_t result_1 = crc.value();
-
-	const uint64_t result_2 = CRC_64_XZ::compute(buf, length);
-
-	return 0;
-}
+const char *buf = "123456789";
+const size_t length = 9;
+const uint64_t result = CRC_64_XZ::calc(buf, length);
 ```
+
+
 
