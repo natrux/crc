@@ -119,12 +119,8 @@
 std::string declarations_dir;
 std::string tables_dir;
 
-size_t calc_line_break(size_t bit_size);
-void generate_all_tables();
-void usage(const std::string &arg0);
 
-
-size_t calc_line_break(size_t bit_size){
+static size_t calc_line_break(size_t bit_size){
 	static const size_t divisor_table[257] = {
 		1,
 		1,
@@ -230,7 +226,7 @@ void generate_table(const std::string &class_name){
 }
 
 
-void generate_all_tables(){
+static void generate_all_tables(){
 	generate_table<CRC_3_GSM>("CRC_3_GSM");
 	generate_table<CRC_3_ROHC>("CRC_3_ROHC");
 	generate_table<CRC_4_G_704>("CRC_4_G_704");
@@ -344,7 +340,7 @@ void generate_all_tables(){
 }
 
 
-void usage(const std::string &arg0){
+static void usage(const std::string &arg0){
 	std::cout << "Usage: " << arg0 << " declarations_dir tables_dir" << std::endl;
 	std::cout << "Where" << std::endl;
 	std::cout << "    declarations_dir is the input folder with the inline declarations" << std::endl;

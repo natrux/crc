@@ -60,9 +60,10 @@ public:
 		}
 	}
 
-	void update(const char *data, size_t length){
+	void update(const void *data, size_t length){
+		const uint8_t *byte_data = reinterpret_cast<const uint8_t *>(data);
 		for(size_t i=0; i<length; i++){
-			const R c = static_cast<R>(data[i]);
+			const R c = byte_data[i];
 			if(ref_in){
 				current = table[(current ^ c) & 0xFF] ^ (current >> 8);
 			}else if(width < 8){
@@ -82,7 +83,7 @@ public:
 	}
 
 	// shortcut
-	static R compute(const char *data, size_t length){
+	static R compute(const void *data, size_t length){
 		CRC crc;
 		crc.update(data, length);
 		return crc.value();
@@ -90,11 +91,12 @@ public:
 
 
 	// direct calculation. Only use to generate a table or if you don't care about performance.
-	static R calc(const char *data, size_t length){
+	static R calc(const void *data, size_t length){
+		const uint8_t *byte_data = reinterpret_cast<const uint8_t *>(data);
 		R result = init;
 		for(size_t i=0; i<length; i++){
 			if(width < 8){
-				unsigned char c = static_cast<unsigned char>(data[i]);
+				uint8_t c = byte_data[i];
 				if(ref_in){
 					c = reflect(c);
 				}
@@ -114,7 +116,7 @@ public:
 				// slightly faster but only works for width >= 8
 				R c;
 				{
-					unsigned char cc = static_cast<unsigned char>(data[i]);
+					uint8_t cc = byte_data[i];
 					if(ref_in){
 						cc = reflect(cc);
 					}
@@ -139,7 +141,7 @@ public:
 
 	static void calc_table(R (&result)[256]){
 		for(size_t i=0; i<256; i++){
-			const char c = i;
+			const unsigned char c = i;
 			// ref_out = ref_in, init = xorout = 0
 			result[i] = CRC<width, poly, ref_in, ref_in, 0, 0>::calc(&c, 1);
 		}
@@ -147,7 +149,7 @@ public:
 
 private:
 	static const R high_bit = static_cast<R>(1) << (width - 1);
-	static const R mask = static_cast<R>(-1) >> (sizeof(R)*8 - width);
+	static const R mask = static_cast<R>(~0) >> (sizeof(R)*8 - width);
 	static const R table[256];
 	R current;
 };
