@@ -8,7 +8,8 @@ See `test.cpp` for usage examples.
 
 C++11
 
-This library uses the `#pragma once` directive, which is non-standard but widely supported. You either need a compiler that supports it or replace the directive with include guards.
+This library uses the `#pragma once` directive, which is non-standard but widely supported.
+You either need a compiler that supports it or replace the directive with include guards.
 
 ## Usage
 
@@ -128,4 +129,30 @@ const uint64_t result = CRC_64_XZ::calc(buf, length);
 ```
 
 
+## Contributing
+
+Issues and PRs welcome!
+
+### Extending
+
+If you have a CRC algorithm that is not covered yet by this library, figure out its parameters, namely
+
+* bit size
+* polynomial
+* reflection on input
+* reflection on output
+* initialization value
+* xor value on output
+
+Using these values, create a corresponding `.inl` file in the `declarations/` directory.
+Please follow the existing naming convention.
+Then, extend the `gen_tables.cpp` file to include the file and to generate the table
+(in the same way as for the others).
+
+Then, find the correct crc value for the test string `123456789` and extend the
+`test.cpp` file to include the header file and to run the test computation along
+the other algorithms.
+
+Finally, extend the `CMakeLists.txt` file by adding the new algorithm to the
+`CRC_ALGORITHMS` list.
 
