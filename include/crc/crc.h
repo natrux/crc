@@ -41,6 +41,7 @@ template<size_t width, uint_w<width> poly, bool ref_in, bool ref_out, uint_w<wid
 class CRC{
 public:
 	using R = uint_w<width>;
+	static const char *name;
 	static const size_t bit_size = width;
 	static const R polygon = poly;
 	static const R initialization = init;
@@ -155,8 +156,12 @@ private:
 };
 
 
-// Definition, so that the class can be used without a table.
+// Definitions, so that the class can be used without a table.
 // Can be overriden by template specialization.
+
 template<size_t width, uint_w<width> poly, bool ref_in, bool ref_out, uint_w<width> init, uint_w<width> xorout>
 const uint_w<width> CRC<width, poly, ref_in, ref_out, init, xorout>::table[256] = {0};
+
+template<size_t width, uint_w<width> poly, bool ref_in, bool ref_out, uint_w<width> init, uint_w<width> xorout>
+const char *CRC<width, poly, ref_in, ref_out, init, xorout>::name = "CRC";
 

@@ -171,23 +171,42 @@ void print_header(std::ostream &out, const std::string &class_name, const std::s
 	out << "#include <cstdint>" << std::endl << std::endl << std::endl << std::endl;
 	out << "using " << class_name << " = " << full_type << ";" << std::endl << std::endl;
 	out << "template<>" << std::endl;
-	out << "const uint_w<" << width << "> " << class_name << "::table[256];";
-	out << std::endl << std::endl;
+	out << "const uint_w<" << width << "> " << class_name << "::table[256];" << std::endl << std::endl;
+	out << "template<>" << std::endl;
+	out << "const char *" << class_name << "::name;" << std::endl << std::endl;
 }
 
 
 template<class C>
-void print_src(std::ostream &out, const std::string &class_name, const std::string &lower_class_name, const std::string &width){
+void print_src(std::ostream &out, const std::string &algorithm_name, const std::string &class_name, const std::string &lower_class_name, const std::string &width){
 	out << "#include <crc/" << lower_class_name << ".h>" << std::endl << std::endl;
 	out << "template<>" << std::endl;
 	out << "const uint_w<" << width << "> " << class_name << "::table[256] = ";
 	print_table<C>(out);
 	out << ";" << std::endl << std::endl;
+	out << "template<>" << std::endl;
+	out << "const char *" << class_name << "::name = \"" << algorithm_name << "\";" << std::endl << std::endl;
 }
 
 
 template<class C>
-void generate_table(const std::string &class_name){
+void generate_table(const std::string &algorithm_name){
+	std::string class_name = algorithm_name;
+	{
+		size_t pos = 0;
+		while(pos != std::string::npos){
+			pos = class_name.find_first_of("-/", pos);
+			if(pos != std::string::npos){
+				auto &chr = class_name.at(pos);
+				if(chr == '-'){
+					chr = '_';
+				}else if(chr == '/'){
+					chr = '_';
+				}
+			}
+		}
+	}
+
 	std::string lower_class_name;
 	{
 		lower_class_name.resize(class_name.length());
@@ -221,122 +240,122 @@ void generate_table(const std::string &class_name){
 	}
 	{
 		std::ofstream stream(tables_dir+"/src/"+lower_class_name+".cpp");
-		print_src<C>(stream, class_name, lower_class_name, int_width);
+		print_src<C>(stream, algorithm_name, class_name, lower_class_name, int_width);
 	}
 }
 
 
 static void generate_all_tables(){
-	generate_table<CRC_3_GSM>("CRC_3_GSM");
-	generate_table<CRC_3_ROHC>("CRC_3_ROHC");
-	generate_table<CRC_4_G_704>("CRC_4_G_704");
-	generate_table<CRC_4_INTERLAKEN>("CRC_4_INTERLAKEN");
-	generate_table<CRC_5_EPC_C1G2>("CRC_5_EPC_C1G2");
-	generate_table<CRC_5_G_704>("CRC_5_G_704");
-	generate_table<CRC_5_USB>("CRC_5_USB");
-	generate_table<CRC_6_CDMA2000_A>("CRC_6_CDMA2000_A");
-	generate_table<CRC_6_CDMA2000_B>("CRC_6_CDMA2000_B");
-	generate_table<CRC_6_DARC>("CRC_6_DARC");
-	generate_table<CRC_6_G_704>("CRC_6_G_704");
-	generate_table<CRC_6_GSM>("CRC_6_GSM");
-	generate_table<CRC_7_MMC>("CRC_7_MMC");
-	generate_table<CRC_7_ROHC>("CRC_7_ROHC");
-	generate_table<CRC_7_UMTS>("CRC_7_UMTS");
-	generate_table<CRC_8_AUTOSAR>("CRC_8_AUTOSAR");
-	generate_table<CRC_8_BLUETOOTH>("CRC_8_BLUETOOTH");
-	generate_table<CRC_8_CDMA2000>("CRC_8_CDMA2000");
-	generate_table<CRC_8_DARC>("CRC_8_DARC");
-	generate_table<CRC_8_DVB_S2>("CRC_8_DVB_S2");
-	generate_table<CRC_8_GSM_A>("CRC_8_GSM_A");
-	generate_table<CRC_8_GSM_B>("CRC_8_GSM_B");
-	generate_table<CRC_8_HITAG>("CRC_8_HITAG");
-	generate_table<CRC_8_I_432_1>("CRC_8_I_432_1");
-	generate_table<CRC_8_I_CODE>("CRC_8_I_CODE");
-	generate_table<CRC_8_LTE>("CRC_8_LTE");
-	generate_table<CRC_8_MAXIM_DOW>("CRC_8_MAXIM_DOW");
-	generate_table<CRC_8_MIFARE_MAD>("CRC_8_MIFARE_MAD");
-	generate_table<CRC_8_NRSC_5>("CRC_8_NRSC_5");
-	generate_table<CRC_8_OPENSAFETY>("CRC_8_OPENSAFETY");
-	generate_table<CRC_8_ROHC>("CRC_8_ROHC");
-	generate_table<CRC_8_SAE_J1850>("CRC_8_SAE_J1850");
-	generate_table<CRC_8_SMBUS>("CRC_8_SMBUS");
-	generate_table<CRC_8_TECH_3250>("CRC_8_TECH_3250");
-	generate_table<CRC_8_WCDMA>("CRC_8_WCDMA");
-	generate_table<CRC_10_ATM>("CRC_10_ATM");
-	generate_table<CRC_10_CDMA2000>("CRC_10_CDMA2000");
-	generate_table<CRC_10_GSM>("CRC_10_GSM");
-	generate_table<CRC_11_FLEXRAY>("CRC_11_FLEXRAY");
-	generate_table<CRC_11_UMTS>("CRC_11_UMTS");
-	generate_table<CRC_12_CDMA2000>("CRC_12_CDMA2000");
-	generate_table<CRC_12_DECT>("CRC_12_DECT");
-	generate_table<CRC_12_GSM>("CRC_12_GSM");
-	generate_table<CRC_12_UMTS>("CRC_12_UMTS");
-	generate_table<CRC_13_BBC>("CRC_13_BBC");
-	generate_table<CRC_14_DARC>("CRC_14_DARC");
-	generate_table<CRC_14_GSM>("CRC_14_GSM");
-	generate_table<CRC_15_CAN>("CRC_15_CAN");
-	generate_table<CRC_15_MPT1327>("CRC_15_MPT1327");
-	generate_table<CRC_16_ARC>("CRC_16_ARC");
-	generate_table<CRC_16_CDMA2000>("CRC_16_CDMA2000");
-	generate_table<CRC_16_CMS>("CRC_16_CMS");
-	generate_table<CRC_16_DDS_110>("CRC_16_DDS_110");
-	generate_table<CRC_16_DECT_R>("CRC_16_DECT_R");
-	generate_table<CRC_16_DECT_X>("CRC_16_DECT_X");
-	generate_table<CRC_16_DNP>("CRC_16_DNP");
-	generate_table<CRC_16_EN_13757>("CRC_16_EN_13757");
-	generate_table<CRC_16_GENIBUS>("CRC_16_GENIBUS");
-	generate_table<CRC_16_GSM>("CRC_16_GSM");
-	generate_table<CRC_16_IBM_3740>("CRC_16_IBM_3740");
-	generate_table<CRC_16_IBM_SDLC>("CRC_16_IBM_SDLC");
-	generate_table<CRC_16_ISO_IEC_14443_3_A>("CRC_16_ISO_IEC_14443_3_A");
-	generate_table<CRC_16_KERMIT>("CRC_16_KERMIT");
-	generate_table<CRC_16_LJ1200>("CRC_16_LJ1200");
-	generate_table<CRC_16_M17>("CRC_16_M17");
-	generate_table<CRC_16_MAXIM_DOW>("CRC_16_MAXIM_DOW");
-	generate_table<CRC_16_MCRF4XX>("CRC_16_MCRF4XX");
-	generate_table<CRC_16_MODBUS>("CRC_16_MODBUS");
-	generate_table<CRC_16_NRSC_5>("CRC_16_NRSC_5");
-	generate_table<CRC_16_OPENSAFETY_A>("CRC_16_OPENSAFETY_A");
-	generate_table<CRC_16_OPENSAFETY_B>("CRC_16_OPENSAFETY_B");
-	generate_table<CRC_16_PROFIBUS>("CRC_16_PROFIBUS");
-	generate_table<CRC_16_RIELLO>("CRC_16_RIELLO");
-	generate_table<CRC_16_SPI_FUJITSU>("CRC_16_SPI_FUJITSU");
-	generate_table<CRC_16_T10_DIF>("CRC_16_T10_DIF");
-	generate_table<CRC_16_TELEDISK>("CRC_16_TELEDISK");
-	generate_table<CRC_16_TMS37157>("CRC_16_TMS37157");
-	generate_table<CRC_16_UMTS>("CRC_16_UMTS");
-	generate_table<CRC_16_USB>("CRC_16_USB");
-	generate_table<CRC_16_XMODEM>("CRC_16_XMODEM");
-	generate_table<CRC_17_CAN_FD>("CRC_17_CAN_FD");
-	generate_table<CRC_21_CAN_FD>("CRC_21_CAN_FD");
-	generate_table<CRC_24_BLE>("CRC_24_BLE");
-	generate_table<CRC_24_FLEXRAY_A>("CRC_24_FLEXRAY_A");
-	generate_table<CRC_24_FLEXRAY_B>("CRC_24_FLEXRAY_B");
-	generate_table<CRC_24_INTERLAKEN>("CRC_24_INTERLAKEN");
-	generate_table<CRC_24_LTE_A>("CRC_24_LTE_A");
-	generate_table<CRC_24_LTE_B>("CRC_24_LTE_B");
-	generate_table<CRC_24_OPENPGP>("CRC_24_OPENPGP");
-	generate_table<CRC_24_OS_9>("CRC_24_OS_9");
-	generate_table<CRC_30_CDMA>("CRC_30_CDMA");
-	generate_table<CRC_31_PHILIPS>("CRC_31_PHILIPS");
-	generate_table<CRC_32_AIXM>("CRC_32_AIXM");
-	generate_table<CRC_32_AUTOSAR>("CRC_32_AUTOSAR");
-	generate_table<CRC_32_BASE91_D>("CRC_32_BASE91_D");
-	generate_table<CRC_32_BZIP2>("CRC_32_BZIP2");
-	generate_table<CRC_32_CD_ROM_EDC>("CRC_32_CD_ROM_EDC");
-	generate_table<CRC_32_CKSUM>("CRC_32_CKSUM");
-	generate_table<CRC_32_ISCSI>("CRC_32_ISCSI");
-	generate_table<CRC_32_ISO_HDLC>("CRC_32_ISO_HDLC");
-	generate_table<CRC_32_JAMCRC>("CRC_32_JAMCRC");
-	generate_table<CRC_32_MEF>("CRC_32_MEF");
-	generate_table<CRC_32_MPEG_2>("CRC_32_MPEG_2");
-	generate_table<CRC_32_XFER>("CRC_32_XFER");
-	generate_table<CRC_40_GSM>("CRC_40_GSM");
-	generate_table<CRC_64_ECMA_182>("CRC_64_ECMA_182");
-	generate_table<CRC_64_GO_ISO>("CRC_64_GO_ISO");
-	generate_table<CRC_64_MS>("CRC_64_MS");
-	generate_table<CRC_64_WE>("CRC_64_WE");
-	generate_table<CRC_64_XZ>("CRC_64_XZ");
+	generate_table<CRC_3_GSM>("CRC-3/GSM");
+	generate_table<CRC_3_ROHC>("CRC-3/ROHC");
+	generate_table<CRC_4_G_704>("CRC-4/G-704");
+	generate_table<CRC_4_INTERLAKEN>("CRC-4/INTERLAKEN");
+	generate_table<CRC_5_EPC_C1G2>("CRC-5/EPC-C1G2");
+	generate_table<CRC_5_G_704>("CRC-5/G-704");
+	generate_table<CRC_5_USB>("CRC-5/USB");
+	generate_table<CRC_6_CDMA2000_A>("CRC-6/CDMA2000-A");
+	generate_table<CRC_6_CDMA2000_B>("CRC-6/CDMA2000-B");
+	generate_table<CRC_6_DARC>("CRC-6/DARC");
+	generate_table<CRC_6_G_704>("CRC-6/G-704");
+	generate_table<CRC_6_GSM>("CRC-6/GSM");
+	generate_table<CRC_7_MMC>("CRC-7/MMC");
+	generate_table<CRC_7_ROHC>("CRC-7/ROHC");
+	generate_table<CRC_7_UMTS>("CRC-7/UMTS");
+	generate_table<CRC_8_AUTOSAR>("CRC-8/AUTOSAR");
+	generate_table<CRC_8_BLUETOOTH>("CRC-8/BLUETOOTH");
+	generate_table<CRC_8_CDMA2000>("CRC-8/CDMA2000");
+	generate_table<CRC_8_DARC>("CRC-8/DARC");
+	generate_table<CRC_8_DVB_S2>("CRC-8/DVB-S2");
+	generate_table<CRC_8_GSM_A>("CRC-8/GSM-A");
+	generate_table<CRC_8_GSM_B>("CRC-8/GSM-B");
+	generate_table<CRC_8_HITAG>("CRC-8/HITAG");
+	generate_table<CRC_8_I_432_1>("CRC-8/I-432-1");
+	generate_table<CRC_8_I_CODE>("CRC-8/I-CODE");
+	generate_table<CRC_8_LTE>("CRC-8/LTE");
+	generate_table<CRC_8_MAXIM_DOW>("CRC-8/MAXIM-DOW");
+	generate_table<CRC_8_MIFARE_MAD>("CRC-8/MIFARE-MAD");
+	generate_table<CRC_8_NRSC_5>("CRC-8/NRSC-5");
+	generate_table<CRC_8_OPENSAFETY>("CRC-8/OPENSAFETY");
+	generate_table<CRC_8_ROHC>("CRC-8/ROHC");
+	generate_table<CRC_8_SAE_J1850>("CRC-8/SAE-J1850");
+	generate_table<CRC_8_SMBUS>("CRC-8/SMBUS");
+	generate_table<CRC_8_TECH_3250>("CRC-8/TECH-3250");
+	generate_table<CRC_8_WCDMA>("CRC-8/WCDMA");
+	generate_table<CRC_10_ATM>("CRC-10/ATM");
+	generate_table<CRC_10_CDMA2000>("CRC-10/CDMA2000");
+	generate_table<CRC_10_GSM>("CRC-10/GSM");
+	generate_table<CRC_11_FLEXRAY>("CRC-11/FLEXRAY");
+	generate_table<CRC_11_UMTS>("CRC-11/UMTS");
+	generate_table<CRC_12_CDMA2000>("CRC-12/CDMA2000");
+	generate_table<CRC_12_DECT>("CRC-12/DECT");
+	generate_table<CRC_12_GSM>("CRC-12/GSM");
+	generate_table<CRC_12_UMTS>("CRC-12/UMTS");
+	generate_table<CRC_13_BBC>("CRC-13/BBC");
+	generate_table<CRC_14_DARC>("CRC-14/DARC");
+	generate_table<CRC_14_GSM>("CRC-14/GSM");
+	generate_table<CRC_15_CAN>("CRC-15/CAN");
+	generate_table<CRC_15_MPT1327>("CRC-15/MPT1327");
+	generate_table<CRC_16_ARC>("CRC-16/ARC");
+	generate_table<CRC_16_CDMA2000>("CRC-16/CDMA2000");
+	generate_table<CRC_16_CMS>("CRC-16/CMS");
+	generate_table<CRC_16_DDS_110>("CRC-16/DDS-110");
+	generate_table<CRC_16_DECT_R>("CRC-16/DECT-R");
+	generate_table<CRC_16_DECT_X>("CRC-16/DECT-X");
+	generate_table<CRC_16_DNP>("CRC-16/DNP");
+	generate_table<CRC_16_EN_13757>("CRC-16/EN-13757");
+	generate_table<CRC_16_GENIBUS>("CRC-16/GENIBUS");
+	generate_table<CRC_16_GSM>("CRC-16/GSM");
+	generate_table<CRC_16_IBM_3740>("CRC-16/IBM-3740");
+	generate_table<CRC_16_IBM_SDLC>("CRC-16/IBM-SDLC");
+	generate_table<CRC_16_ISO_IEC_14443_3_A>("CRC-16/ISO-IEC-14443-3-A");
+	generate_table<CRC_16_KERMIT>("CRC-16/KERMIT");
+	generate_table<CRC_16_LJ1200>("CRC-16/LJ1200");
+	generate_table<CRC_16_M17>("CRC-16/M17");
+	generate_table<CRC_16_MAXIM_DOW>("CRC-16/MAXIM-DOW");
+	generate_table<CRC_16_MCRF4XX>("CRC-16/MCRF4XX");
+	generate_table<CRC_16_MODBUS>("CRC-16/MODBUS");
+	generate_table<CRC_16_NRSC_5>("CRC-16/NRSC-5");
+	generate_table<CRC_16_OPENSAFETY_A>("CRC-16/OPENSAFETY-A");
+	generate_table<CRC_16_OPENSAFETY_B>("CRC-16/OPENSAFETY-B");
+	generate_table<CRC_16_PROFIBUS>("CRC-16/PROFIBUS");
+	generate_table<CRC_16_RIELLO>("CRC-16/RIELLO");
+	generate_table<CRC_16_SPI_FUJITSU>("CRC-16/SPI-FUJITSU");
+	generate_table<CRC_16_T10_DIF>("CRC-16/T10-DIF");
+	generate_table<CRC_16_TELEDISK>("CRC-16/TELEDISK");
+	generate_table<CRC_16_TMS37157>("CRC-16/TMS37157");
+	generate_table<CRC_16_UMTS>("CRC-16/UMTS");
+	generate_table<CRC_16_USB>("CRC-16/USB");
+	generate_table<CRC_16_XMODEM>("CRC-16/XMODEM");
+	generate_table<CRC_17_CAN_FD>("CRC-17/CAN-FD");
+	generate_table<CRC_21_CAN_FD>("CRC-21/CAN-FD");
+	generate_table<CRC_24_BLE>("CRC-24/BLE");
+	generate_table<CRC_24_FLEXRAY_A>("CRC-24/FLEXRAY-A");
+	generate_table<CRC_24_FLEXRAY_B>("CRC-24/FLEXRAY-B");
+	generate_table<CRC_24_INTERLAKEN>("CRC-24/INTERLAKEN");
+	generate_table<CRC_24_LTE_A>("CRC-24/LTE-A");
+	generate_table<CRC_24_LTE_B>("CRC-24/LTE-B");
+	generate_table<CRC_24_OPENPGP>("CRC-24/OPENPGP");
+	generate_table<CRC_24_OS_9>("CRC-24/OS-9");
+	generate_table<CRC_30_CDMA>("CRC-30/CDMA");
+	generate_table<CRC_31_PHILIPS>("CRC-31/PHILIPS");
+	generate_table<CRC_32_AIXM>("CRC-32/AIXM");
+	generate_table<CRC_32_AUTOSAR>("CRC-32/AUTOSAR");
+	generate_table<CRC_32_BASE91_D>("CRC-32/BASE91-D");
+	generate_table<CRC_32_BZIP2>("CRC-32/BZIP2");
+	generate_table<CRC_32_CD_ROM_EDC>("CRC-32/CD-ROM-EDC");
+	generate_table<CRC_32_CKSUM>("CRC-32/CKSUM");
+	generate_table<CRC_32_ISCSI>("CRC-32/ISCSI");
+	generate_table<CRC_32_ISO_HDLC>("CRC-32/ISO-HDLC");
+	generate_table<CRC_32_JAMCRC>("CRC-32/JAMCRC");
+	generate_table<CRC_32_MEF>("CRC-32/MEF");
+	generate_table<CRC_32_MPEG_2>("CRC-32/MPEG-2");
+	generate_table<CRC_32_XFER>("CRC-32/XFER");
+	generate_table<CRC_40_GSM>("CRC-40/GSM");
+	generate_table<CRC_64_ECMA_182>("CRC-64/ECMA-182");
+	generate_table<CRC_64_GO_ISO>("CRC-64/GO-ISO");
+	generate_table<CRC_64_MS>("CRC-64/MS");
+	generate_table<CRC_64_WE>("CRC-64/WE");
+	generate_table<CRC_64_XZ>("CRC-64/XZ");
 }
 
 

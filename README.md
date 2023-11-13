@@ -22,7 +22,7 @@ You can use the library as a subdirectory in a cmake project.
 This is the preferred way and the easiest and cleanest way to set up.
 
 First, decide which CRC algorithm(s) you need, set the build options accordingly and then add the subdirectory / git submodule.
-For example, if you only need the `crc_64_xz` algorithm, your cmake file could look like this.
+For example, if you only need the `CRC-64/XZ` algorithm, your cmake file could look like this.
 
 ```
 set(CRC_BUILD_COMBINED OFF)
@@ -86,7 +86,7 @@ make
 ```
 
 During the build, the CRC header files and lookup tables will be generated. You can find them in the build directory at `tables/include/crc/` and `tables/src/`, respectively.
-For example, for the `crc_64_xz` algorithm, you need
+For example, for the `CRC-64/XZ` algorithm, you need
 
 * `include/crc/crc.h`
 * `tables/include/crc/crc_64_xz.h`

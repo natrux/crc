@@ -33,7 +33,7 @@ for line in lines:
 
 	#print("#include \"%s\"" % filename)
 
-	#print("generate_table<%s>(\"%s\");" % (d["class_name"], d["class_name"]))
+	#print("generate_table<%s>(\"%s\");" % (d["class_name"], d["name"]))
 
-	#print("check<%s>(\"%s\", %s);" % (d["class_name"], d["name"], d["check"]))
+	#print("check<%s>(%s);" % (d["class_name"], d["check"]))
 
