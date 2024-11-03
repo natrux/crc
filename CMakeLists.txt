@@ -1,21 +1,15 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.10)
 project(crc CXX)
 
-set(CMAKE_CXX_STANDARD 11)
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-	add_compile_options(
-		-pedantic -Wall -Wextra
-		-Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization
-		-Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations
-		-Wmissing-include-dirs -Wold-style-cast -Wredundant-decls -Wshadow
-		-Wsign-conversion -Wsign-promo -Wstrict-null-sentinel
-		-Wstrict-overflow -Wsuggest-override -Wswitch-default -Wundef
-
-		#-Werror
-	)
-else()
-	message(WARNING "Unknown compiler - not turning on warnings")
-endif()
+add_compile_options(
+	-Wall -Wextra -Wpedantic
+	-Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization
+	-Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations
+	-Wmissing-include-dirs -Wold-style-cast -Wredundant-decls -Wshadow
+	-Wsign-conversion -Wsign-promo -Wstrict-null-sentinel
+	-Wstrict-overflow -Wsuggest-override -Wswitch-default -Wundef
+	#-Werror
+)
 
 
 
@@ -132,12 +126,11 @@ list(APPEND CRC_ALGORITHMS
 	crc_64_xz
 )
 
+option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 option(CRC_BUILD_COMBINED "build combined library for all algorithms" ON)
 foreach(i ${CRC_ALGORITHMS})
 	option(CRC_BUILD_${i} "build library for ${i}" OFF)
 endforeach()
-
-
 
 
 foreach(i ${CRC_ALGORITHMS})
@@ -153,7 +146,7 @@ foreach(i ${CRC_ALGORITHMS})
 		${table_src}
 	)
 	if(CRC_BUILD_${i})
-		add_library(${i} SHARED
+		add_library(${i}
 			${table_src}
 		)
 		target_include_directories(${i} PUBLIC
@@ -164,10 +157,9 @@ foreach(i ${CRC_ALGORITHMS})
 endforeach()
 
 if(CRC_BUILD_COMBINED)
-	add_library(crc SHARED
+	add_library(crc
 		${CRC_TABLES_SRC}
 	)
-
 	target_include_directories(crc PUBLIC
 		include
 		${CMAKE_CURRENT_BINARY_DIR}/tables/include
@@ -178,7 +170,6 @@ endif()
 add_executable(gen_tables
 	gen_tables.cpp
 )
-
 target_include_directories(gen_tables PUBLIC
 	include
 	declarations
@@ -190,7 +181,6 @@ if(CRC_BUILD_COMBINED)
 	add_executable(test
 		test.cpp
 	)
-
 	target_link_libraries(test
 		crc
 	)
