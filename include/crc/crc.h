@@ -26,8 +26,7 @@ using uint_w = typename std::enable_if<
 
 
 template<class T, size_t width=sizeof(T)*8>
-T reflect(const T &value){
-	static_assert(width <= sizeof(T)*8, "Cannot reflect more bits than the type has");
+typename std::enable_if<width<=sizeof(T)*8, T>::type reflect(const T &value){
 	T result = 0;
 	const T one = 1;
 	for(size_t i=0; i<width; i++){
