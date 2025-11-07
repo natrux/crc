@@ -134,8 +134,6 @@ endforeach()
 
 
 foreach(i ${CRC_ALGORITHMS})
-	set(table_src tables/src/${i}.cpp)
-
 	list(APPEND CRC_DECLARATIONS
 		${CMAKE_CURRENT_SOURCE_DIR}/declarations/${i}.inl
 	)
@@ -143,16 +141,19 @@ foreach(i ${CRC_ALGORITHMS})
 		tables/include/crc/${i}.h
 	)
 	list(APPEND CRC_TABLES_SRC
-		${table_src}
+		tables/src/${i}.cpp
 	)
 	if(CRC_BUILD_${i})
 		add_library(${i}
-			${table_src}
+			tables/src/${i}.cpp
 		)
 		target_include_directories(${i} PUBLIC
 			include
 			${CMAKE_CURRENT_BINARY_DIR}/tables/include
 		)
+		install(TARGETS ${i})
+		install(DIRECTORY include/ DESTINATION include/)
+		install(FILES ${CMAKE_CURRENT_BINARY_DIR}/tables/include/crc/${i}.h DESTINATION include/crc/)
 	endif()
 endforeach()
 
@@ -164,6 +165,9 @@ if(CRC_BUILD_COMBINED)
 		include
 		${CMAKE_CURRENT_BINARY_DIR}/tables/include
 	)
+	install(TARGETS crc)
+	install(DIRECTORY include/ DESTINATION include/)
+	install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tables/include/ DESTINATION include/)
 endif()
 
 
