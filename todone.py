@@ -24,16 +24,16 @@ for line in lines:
 	d["class_name"] = d["name"].replace("-", "_").replace("/", "_")
 	d["lower_class_name"] = d["class_name"].lower()
 
-	filename = "%s.h" % d["lower_class_name"]
+	filename = "%s.inl" % d["lower_class_name"]
 	declaration = "using %s = CRC<%s, %s, %s, %s, %s, %s>;" %(d["class_name"], d["width"], d["poly"], d["refin"], d["refout"], d["init"], d["xorout"])
 
 
-	#with open("declarations/%s" % filename, "w") as stream:
-	#	stream.write(declaration)
+	with open("declarations/%s" % filename, "w") as stream:
+		stream.write(declaration)
 
-	#print("#include \"%s\"" % filename)
+	print("#include <%s>" % filename)
 
-	#print("generate_table<%s>(\"%s\");" % (d["class_name"], d["name"]))
+	print("generate_table<%s>(\"%s\");" % (d["class_name"], d["name"]))
 
-	#print("check<%s>(%s);" % (d["class_name"], d["check"]))
+	print("check<%s>(%s);" % (d["class_name"], d["check"]))
 
