@@ -1,0 +1,1 @@
+using CRC_64_NVME = CRC<64, 0xad93d23594c93659, true, true, 0xffffffffffffffff, 0xffffffffffffffff>;

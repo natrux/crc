@@ -122,6 +122,8 @@ list(APPEND CRC_ALGORITHMS
 	crc_64_ecma_182
 	crc_64_go_iso
 	crc_64_ms
+	crc_64_nvme
+	crc_64_redis
 	crc_64_we
 	crc_64_xz
 )

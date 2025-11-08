@@ -111,6 +111,8 @@
 #include <crc_64_ecma_182.inl>
 #include <crc_64_go_iso.inl>
 #include <crc_64_ms.inl>
+#include <crc_64_nvme.inl>
+#include <crc_64_redis.inl>
 #include <crc_64_we.inl>
 #include <crc_64_xz.inl>
 
@@ -354,6 +356,8 @@ static void generate_all_tables(){
 	generate_table<CRC_64_ECMA_182>("CRC-64/ECMA-182");
 	generate_table<CRC_64_GO_ISO>("CRC-64/GO-ISO");
 	generate_table<CRC_64_MS>("CRC-64/MS");
+	generate_table<CRC_64_NVME>("CRC-64/NVME");
+	generate_table<CRC_64_REDIS>("CRC-64/REDIS");
 	generate_table<CRC_64_WE>("CRC-64/WE");
 	generate_table<CRC_64_XZ>("CRC-64/XZ");
 }

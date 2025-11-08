@@ -106,6 +106,8 @@
 #include <crc/crc_64_ecma_182.h>
 #include <crc/crc_64_go_iso.h>
 #include <crc/crc_64_ms.h>
+#include <crc/crc_64_nvme.h>
+#include <crc/crc_64_redis.h>
 #include <crc/crc_64_we.h>
 #include <crc/crc_64_xz.h>
 
@@ -242,6 +244,8 @@ int main(int /*argc*/, char **/*argv*/){
 	check<CRC_64_ECMA_182>(0x6c40df5f0b497347);
 	check<CRC_64_GO_ISO>(0xb90956c775a41001);
 	check<CRC_64_MS>(0x75d4b74f024eceea);
+	check<CRC_64_NVME>(0xae8b14860a799888);
+	check<CRC_64_REDIS>(0xe9c6d914c4b8d9ca);
 	check<CRC_64_WE>(0x62ec59e3f1a4f00a);
 	check<CRC_64_XZ>(0x995dc9bbdf1939fa);
 
